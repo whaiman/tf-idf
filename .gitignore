@@ -1,0 +1,4 @@
+.git/
+__pycache__/
+nltk_data/
+index.py
