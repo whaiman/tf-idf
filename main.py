@@ -1,4 +1,4 @@
-from tfidf import TFIDF
+from tfidf import TextPreprocessor, TfIdfVectorizer
 
 
 def main():
@@ -53,18 +53,18 @@ def main():
         for i, query in enumerate(queries):
             print(f"  QUERY {i}: {query}")
 
-        tfidf_model = TFIDF(corpus, language=lang)
-        tfidf_model.preprocess_corpus()
-        tfidf_model.build_terms()
-        tfidf_matrix = tfidf_model.tfidf()
+        preprocessor = TextPreprocessor(language=lang)
+        vectorizer = TfIdfVectorizer(preprocessor)
 
-        print("\nTerms:", tfidf_model.terms)
+        tfidf_matrix = vectorizer.fit_transform(corpus)
+
+        print("\nTerms:", vectorizer.terms)
         print("TF-IDF Matrix:\n", tfidf_matrix)
 
         print("\nCosine Similarity Results:")
         for i, query in enumerate(queries):
             print(f"\nQUERY {i}: {query}")
-            similarities = tfidf_model.cosine_similarity(query)
+            similarities = vectorizer.cosine_similarity(query)
             for j, sim in enumerate(similarities):
                 print(f"Similarity with DOC {j} = {sim:.4f}")
 
