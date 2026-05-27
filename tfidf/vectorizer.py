@@ -11,7 +11,6 @@ from .preprocessor import TextPreprocessor
 class TfIdfVectorizer:
     """Computes TF-IDF matrix and handles cosine similarity queries."""
 
-
     def __init__(self, preprocessor: TextPreprocessor) -> None:
         self.preprocessor = preprocessor
         self.corpus: List[str] = []
@@ -47,7 +46,6 @@ class TfIdfVectorizer:
 
         self.tf_matrix = pd.DataFrame(tf_data, columns=self.terms)
 
-
     def _compute_idf(self) -> None:
         N = len(self.norm_corpus)
         df = np.zeros(len(self.terms))
@@ -56,7 +54,6 @@ class TfIdfVectorizer:
 
         df = np.where(df == 0, 1, df)
         self.idf_vector = 1 + np.log(N / df)
-
 
     def _compute_tfidf(self) -> np.ndarray:
         if self.tf_matrix is None or self.idf_vector is None:
@@ -70,7 +67,6 @@ class TfIdfVectorizer:
         norms = np.where(norms == 0, 1, norms)
         self.tfidf_matrix = tfidf / norms[:, None]
         return self.tfidf_matrix
-
 
     def cosine_similarity(self, query: str) -> np.ndarray:
         if self.tfidf_matrix is None or self.idf_vector is None:

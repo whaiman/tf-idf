@@ -37,7 +37,6 @@ class TextPreprocessor:
         elif self.language == "english":
             self.lemmatizer = WordNetLemmatizer()
 
-
     def _stem_azerbaijani(self, token: str) -> str:
         """Lightweight heuristic stemmer for Azerbaijani suffixes."""
         suffixes = r"(lardan|lərdən|larındandır|lərindəndir|ların|lərin|lardan|lərdən|lar|lər|ın|in|un|ün|da|də|dan|dən|ya|yə|ı|i|u|ü)$"
@@ -59,7 +58,6 @@ class TextPreprocessor:
         #     return self._stem_turkish(token)
 
         return token  # Fallback for unsupported languages
-
 
     def normalize_text(self, text) -> str:
         """Main normalization pipeline."""
